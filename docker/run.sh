@@ -32,7 +32,17 @@ shift $((OPTIND-1))
 
 echo "Using $DOCKER_IMAGE_NAME:$TAG"
 
+xhost +local:root
+
 docker run \
     -it --rm \
+     --runtime=nvidia \
+    -e DISPLAY=$DISPLAY \
+    -v $XSOCK:$XSOCK \
+    -v $HOME/.Xauthority:/root/.Xauthority \
+    --privileged \
+    --gpus all \
     --net=host \
     "$DOCKER_IMAGE_NAME:$TAG" "$@"
+
+xhost -local:root

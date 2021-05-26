@@ -11,6 +11,12 @@ ARG ROS_DISTRO
 ENV CARLA_VERSION=$CARLA_VERSION
 ENV DEBIAN_FRONTEND=noninteractive
 
+# nvidia-container-runtime
+ENV NVIDIA_VISIBLE_DEVICES \
+    ${NVIDIA_VISIBLE_DEVICES:-all}
+ENV NVIDIA_DRIVER_CAPABILITIES \
+    ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
+
 RUN mkdir -p /opt/carla-ros-bridge/src
 WORKDIR /opt/carla-ros-bridge
 
