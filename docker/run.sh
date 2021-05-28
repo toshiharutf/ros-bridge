@@ -38,11 +38,11 @@ docker run \
     -it --rm \
      --runtime=nvidia \
     -e DISPLAY=$DISPLAY \
-    -v $XSOCK:$XSOCK \
-    -v $HOME/.Xauthority:/root/.Xauthority \
     --privileged \
     --gpus all \
     --net=host \
-    "$DOCKER_IMAGE_NAME:$TAG" "$@"
+    --label=docker_ros2 \
+    "$DOCKER_IMAGE_NAME:$TAG" "$@" \
+    ros2 launch carla_ros_bridge carla_ros_bridge.launch.py
 
 xhost -local:root
